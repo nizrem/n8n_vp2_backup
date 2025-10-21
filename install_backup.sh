@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "=== Установка системы бэкапа n8n ==="
 
 # Создаём папку для бэкапов
@@ -10,7 +9,6 @@ echo "✓ Папка для бэкапов создана: $BACKUP_DIR"
 # Создаём скрипт бэкапа
 cat > /root/backup_n8n.sh << 'BACKUP_SCRIPT'
 #!/bin/bash
-
 # Папка для бэкапов
 BACKUP_DIR="/root/n8n_backups"
 mkdir -p "$BACKUP_DIR"
