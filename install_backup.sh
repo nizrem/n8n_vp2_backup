@@ -30,9 +30,9 @@ BACKUP_SCRIPT
 chmod +x /root/backup_n8n.sh
 echo "✓ Скрипт бэкапа создан: /root/backup_n8n.sh"
 
-# Добавляем в cron (каждый день в 2:00)
-(crontab -l 2>/dev/null | grep -v "backup_n8n.sh"; echo "0 2 * * * /root/backup_n8n.sh") | crontab -
-echo "✓ Добавлено в cron: ежедневный бэкап в 2:00"
+# Добавляем в cron (очистка в 8:00, бэкап в 9:00)
+(crontab -l 2>/dev/null | grep -v "backup_n8n.sh" | grep -v "binaryData"; echo "0 8 * * * find /root/n8n_data/binaryData -type f -delete"; echo "0 9 * * * /root/backup_n8n.sh") | crontab -
+echo "✓ Добавлено в cron: очистка binaryData в 8:00, бэкап в 9:00"
 
 # Создаём первый бэкап
 echo "Создаём первый бэкап..."
@@ -45,6 +45,6 @@ echo "Созданные бэкапы:"
 ls -lh "$BACKUP_DIR/"
 echo ""
 echo "Настройки cron:"
-crontab -l | grep backup_n8n.sh
+crontab -l | grep -E "backup_n8n|binaryData"
 echo ""
 echo "Логи бэкапов: /root/n8n_backup.log"
